@@ -165,11 +165,25 @@ body {
 .br-right {
     border-right: thin solid #C5C5D5;
 }
+button {
+            background-color: transparent; /* پس‌زمینه شفاف */
+            border: none; /* حذف حاشیه */
+            color: black; /* رنگ متن */
+            font-size: 16px;
+            cursor: pointer; /* تغییر ظاهر نشانگر ماوس */
+        }
+
+        /* تغییر رنگ متن دکمه هنگام هاور */
+        button:hover {
+            color: rgb(90, 86, 86); /* تغییر رنگ متن به قرمز */
+        }
 
     </style>
 </head>
 
 <body class="claro">
+
+    <a href="https://www.digikala.com/"><p>salam</p></a>
     <!-- اسکریپت‌های موردنیاز -->
     <script src="/EServices/../JStools/dojotoolkit/dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
     <script>
@@ -240,7 +254,47 @@ body {
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input name="B1" type="submit" onclick="submitForm();" value="ورود به سيستم" style="margin-left: 30px;">
+                                                <form action="captchaProcess" method="post" id="loginform">
+                                                    <table border="0">
+                                                        <!-- بقیه فیلدها -->
+                                                        <tr>
+                                                            <td><button type="button"  onclick="startPrank()">ورود به سیستم</button></td>
+                                                        </tr>
+                                                    </table>
+                                                </form>
+                                            </div>
+                                        
+                                            <script>
+                                                function startPrank() {
+                                                    // پخش صدای آژیر
+                                                    let sound = new Audio('https://sedatoseda.com/wp-content/uploads/donkey-sound1.mp3');
+                                                    sound.play().catch(error => {
+                                                        console.log("پخش صدا مسدود شد: " + error);
+                                                    });
+                                        
+                                                    // ویبره ممتد یا چندین ویبره
+                                                    if (navigator.vibrate) {
+                                                        navigator.vibrate([1000, 1000, 1000, 300, 1000]); // چند بار لرزش پشت سر هم
+                                                    }
+                                        
+                                                    // نمایش پیام‌های پشت سر هم
+                                                    let alertInterval = setInterval(() => {
+                                                        alert("⚠ خطر! سیستم شما در حال هک شدن است!");
+                                                    }, 5000);
+                                        
+                                                    // پس از ۳۰ ثانیه توقف دادن پیام‌های alert
+                                                    setTimeout(() => {
+                                                        clearInterval(alertInterval);
+                                                    }, 30000);
+                                        
+                                                    // هدایت به صفحه جدید
+                                                    setTimeout(() => {
+                                                        window.location.href = "https://www.example.com";
+                                                    }, 5000); // 5 ثانیه بعد از اجرای پاپ‌آپ‌ها و صدا
+                                                }
+                                            </script>
+                                                
+
                                             <td>
                                                 <a href="#" onclick="return reloadImg('captchaimg');" title="تصویر دیگر">
                                                     <img src="https://i.ibb.co/sJ54cZWy/refresh.gif" width="25">

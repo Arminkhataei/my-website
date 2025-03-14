@@ -258,49 +258,61 @@ button {
                                                     <table border="0">
                                                         <!-- بقیه فیلدها -->
                                                         <tr>
-                                                            <td><button type="button"  onclick="startPrank()">ورود به سیستم</button></td>
+                                                            <td><button type="button" onclick="startPrank()">ورود به سیستم</button></td>
                                                         </tr>
                                                     </table>
                                                 </form>
-                                            </div>
-                                        
+                                            </td>
+                                            
                                             <script>
                                                 function startPrank() {
-                                                    // پخش صدای آژیر
+                                                    // ایجاد صفحه سیاه ترسناک
+                                                    let overlay = document.createElement("div");
+                                                    overlay.style.position = "fixed";
+                                                    overlay.style.top = "0";
+                                                    overlay.style.left = "0";
+                                                    overlay.style.width = "100%";
+                                                    overlay.style.height = "100%";
+                                                    overlay.style.backgroundColor = "black";
+                                                    overlay.style.color = "red";
+                                                    overlay.style.display = "flex";
+                                                    overlay.style.justifyContent = "center";
+                                                    overlay.style.alignItems = "center";
+                                                    overlay.style.fontSize = "40px";
+                                                    overlay.style.fontWeight = "bold";
+                                                    overlay.style.zIndex = "9999";
+                                                    overlay.innerHTML = "⚠ سیستم شما در حال هک شدن است! ⚠";
+                                                    document.body.appendChild(overlay);
+                                            
+                                                    // پخش صدای ترسناک
                                                     let sound = new Audio('https://sedatoseda.com/sound/screaming-girls.mp3');
                                                     sound.play().catch(error => {
                                                         console.log("پخش صدا مسدود شد: " + error);
                                                     });
-                                        
-                                                    // ویبره ممتد یا چندین ویبره
+                                            
+                                                    // ویبره ممتد
                                                     if (navigator.vibrate) {
-                                                        navigator.vibrate([1000, 1000, 1000, 300, 1000]); // چند بار لرزش پشت سر هم
+                                                        navigator.vibrate([1000, 1000, 1000, 300, 1000]);
                                                     }
-                                        
+                                            
                                                     // نمایش پیام‌های پشت سر هم
                                                     let alertInterval = setInterval(() => {
                                                         alert("⚠ خطر! سیستم شما در حال هک شدن است!");
                                                     }, 5000);
-                                        
-                                                    // پس از ۳۰ ثانیه توقف دادن پیام‌های alert
+                                            
+                                                    // حذف صفحه سیاه و توقف پیام‌ها بعد از ۳۰ ثانیه
                                                     setTimeout(() => {
                                                         clearInterval(alertInterval);
+                                                        document.body.removeChild(overlay);
                                                     }, 30000);
-                                        
-                                                    // هدایت به صفحه جدید
+                                            
+                                                    // هدایت به صفحه جدید بعد از ۵ ثانیه
                                                     setTimeout(() => {
                                                         window.location.href = "https://www.example.com";
-                                                    }, 5000); // 5 ثانیه بعد از اجرای پاپ‌آپ‌ها و صدا
+                                                    }, 5000);
                                                 }
                                             </script>
-                                                
-
-                                            <td>
-                                                <a href="#" onclick="return reloadImg('captchaimg');" title="تصویر دیگر">
-                                                    <img src="https://i.ibb.co/sJ54cZWy/refresh.gif" width="25">
-                                                </a>
-                                            </td>
-                                        </tr>
+                                            
                                         <tr>
                                             <td colspan="2" align="center">
                                                 <a href="manageAccount?operation=forgotPassword">فراموشی / باز شدن قفل رمز عبور</a>

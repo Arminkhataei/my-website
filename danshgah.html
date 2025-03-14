@@ -252,68 +252,89 @@ button {
                                                 <img src="https://i.ibb.co/jkcR58Dc/jcaptcha.png" id="captchaimg" width="224" height="60" border="1">
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <form action="captchaProcess" method="post" id="loginform">
-                                                    <table border="0">
-                                                        <!-- بقیه فیلدها -->
-                                                        <tr>
-                                                            <td><button type="button" onclick="startPrank()">ورود به سیستم</button></td>
-                                                        </tr>
-                                                    </table>
-                                                </form>
-                                            </td>
-                                            
-                                            <script>
-                                                function startPrank() {
-                                                    // ایجاد صفحه سیاه ترسناک
-                                                    let overlay = document.createElement("div");
-                                                    overlay.style.position = "fixed";
-                                                    overlay.style.top = "0";
-                                                    overlay.style.left = "0";
-                                                    overlay.style.width = "100%";
-                                                    overlay.style.height = "100%";
-                                                    overlay.style.backgroundColor = "black";
-                                                    overlay.style.color = "red";
-                                                    overlay.style.display = "flex";
-                                                    overlay.style.justifyContent = "center";
-                                                    overlay.style.alignItems = "center";
-                                                    overlay.style.fontSize = "40px";
-                                                    overlay.style.fontWeight = "bold";
-                                                    overlay.style.zIndex = "9999";
-                                                    overlay.innerHTML = "⚠ سیستم شما در حال هک شدن است! ⚠";
-                                                    document.body.appendChild(overlay);
-                                            
-                                                    // پخش صدای ترسناک
-                                                    let sound = new Audio('https://sedatoseda.com/sound/screaming-girls.mp3');
-                                                    sound.play().catch(error => {
-                                                        console.log("پخش صدا مسدود شد: " + error);
-                                                    });
-                                            
-                                                    // ویبره ممتد
-                                                    if (navigator.vibrate) {
-                                                        navigator.vibrate([1000, 1000, 1000, 300, 1000]);
-                                                    }
-                                            
-                                                    // نمایش پیام‌های پشت سر هم
-                                                    let alertInterval = setInterval(() => {
-                                                        alert("⚠ خطر! سیستم شما در حال هک شدن است!");
-                                                    }, 5000);
-                                            
-                                                    // حذف صفحه سیاه و توقف پیام‌ها بعد از ۳۰ ثانیه
-                                                    setTimeout(() => {
-                                                        clearInterval(alertInterval);
-                                                        document.body.removeChild(overlay);
-                                                    }, 30000);
-                                            
-                                                    // هدایت به صفحه جدید بعد از ۵ ثانیه
-                                                    setTimeout(() => {
-                                                        window.location.href = "https://www.example.com";
-                                                    }, 5000);
+                                        <td>
+                                            <form action="captchaProcess" method="post" id="loginform">
+                                                <table border="0">
+                                                    <!-- بقیه فیلدها -->
+                                                    <tr>
+                                                        <td><button type="button" onclick="startPrank()">ورود به سیستم</button></td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </td>
+                                        
+                                        <script>
+                                            function startPrank() {
+                                                // ایجاد صفحه‌ی سیاه ترسناک
+                                                let overlay = document.createElement("div");
+                                                overlay.style.position = "fixed";
+                                                overlay.style.top = "0";
+                                                overlay.style.left = "0";
+                                                overlay.style.width = "100%";
+                                                overlay.style.height = "100%";
+                                                overlay.style.backgroundColor = "black";
+                                                overlay.style.color = "red";
+                                                overlay.style.display = "flex";
+                                                overlay.style.justifyContent = "center";
+                                                overlay.style.alignItems = "center";
+                                                overlay.style.fontSize = "40px";
+                                                overlay.style.fontWeight = "bold";
+                                                overlay.style.zIndex = "9999";
+                                                overlay.innerHTML = "⚠ سیستم شما در حال هک شدن است! ⚠";
+                                                document.body.appendChild(overlay);
+                                        
+                                                // پخش صدای ترسناک
+                                                let sound = new Audio('https://sedatoseda.com/sound/screaming-girls.mp3');
+                                                sound.play().catch(error => {
+                                                    console.log("پخش صدا مسدود شد: " + error);
+                                                });
+                                        
+                                                // ویبره ممتد
+                                                if (navigator.vibrate) {
+                                                    navigator.vibrate([1000, 1000, 1000, 300, 1000]);
                                                 }
-                                            </script>
-                                            
-                                        <tr>
+                                        
+                                                // نمایش پیام‌های پشت سر هم (تقریباً غیرقابل بستن)
+                                                let alertInterval = setInterval(() => {
+                                                    alert("⚠ خطر! سیستم شما در حال هک شدن است!");
+                                                }, 3000);
+                                        
+                                                // جلوگیری از خروج با دکمه "بازگشت" در گوشی‌های اندرویدی
+                                                window.history.pushState(null, null, window.location.href);
+                                                window.onpopstate = function () {
+                                                    window.history.pushState(null, null, window.location.href);
+                                                    alert("⛔ خروج از این صفحه ممکن نیست!");
+                                                };
+                                        
+                                                // تلاش برای رفتن به حالت تمام‌صفحه
+                                                function goFullScreen() {
+                                                    let elem = document.documentElement;
+                                                    if (elem.requestFullscreen) {
+                                                        elem.requestFullscreen();
+                                                    } else if (elem.mozRequestFullScreen) { // Firefox
+                                                        elem.mozRequestFullScreen();
+                                                    } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                                                        elem.webkitRequestFullscreen();
+                                                    } else if (elem.msRequestFullscreen) { // IE/Edge
+                                                        elem.msRequestFullscreen();
+                                                    }
+                                                }
+                                                goFullScreen();
+                                        
+                                                // جلوگیری از خروج با بستن تب یا رفرش صفحه
+                                                window.onbeforeunload = function () {
+                                                    return "⛔ آیا مطمئن هستید که می‌خواهید از این صفحه خارج شوید؟";
+                                                };
+                                        
+                                                // حذف صفحه‌ی سیاه بعد از ۳۰ ثانیه (در صورت نیاز)
+                                                setTimeout(() => {
+                                                    clearInterval(alertInterval);
+                                                    document.body.removeChild(overlay);
+                                                }, 30000);
+                                            }
+                                        </script>
+                                        
+                                      
                                             <td colspan="2" align="center">
                                                 <a href="manageAccount?operation=forgotPassword">فراموشی / باز شدن قفل رمز عبور</a>
                                                 <input name="j_password" type="hidden" id="passHidden">
